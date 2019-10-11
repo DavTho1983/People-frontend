@@ -8,21 +8,27 @@ import SimpleTable from "./containers/Table/table";
 
 import "./App.css";
 
+const client = new ApolloClient({
+  uri: "http://localhost:8000/graphql/"
+});
+
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <SimpleTable></SimpleTable>
-        <Button variant="contained" color="primary">
-          Add Person
-        </Button>
-        <Button variant="contained" color="primary">
-          Edit Person
-        </Button>
-        <Button variant="contained" color="primary">
-          Delete Person
-        </Button>
-      </div>
+      <ApolloProvider client={client}>
+        <div className="App">
+          <SimpleTable></SimpleTable>
+          <Button variant="contained" color="primary">
+            Add Person
+          </Button>
+          <Button variant="contained" color="primary">
+            Edit Person
+          </Button>
+          <Button variant="contained" color="primary">
+            Delete Person
+          </Button>
+        </div>
+      </ApolloProvider>
     );
   }
 }

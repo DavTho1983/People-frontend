@@ -6,6 +6,23 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import gql from "graphql-tag";
+import { Query } from "react-apollo";
+
+const DATA_QUERY = gql`
+  query {
+    persons {
+      edges {
+        node {
+          firstName
+          lastName
+          address
+        }
+      }
+    }
+  }
+`;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -15,6 +32,9 @@ const useStyles = makeStyles(theme => ({
   },
   table: {
     minWidth: 650
+  },
+  progress: {
+    margin: theme.spacing(2)
   }
 }));
 
@@ -32,6 +52,23 @@ export default function SimpleTable() {
 
   return (
     <Paper className={classes.root}>
+      <Query query={DATA_QUERY}>
+        {({ loading, error, data }) => {
+          if (loading) {
+            return (
+              <div>
+                <CircularProgress
+                  className={classes.progress}
+                  color="secondary"
+                />
+              </div>
+            );
+          }
+          if (error) console.log(error);
+          console.log(data);
+          return <h1>TEST</h1>;
+        }}
+      </Query>
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
