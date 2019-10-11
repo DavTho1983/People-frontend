@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
 
-import Button from "@material-ui/core/Button";
+import Buttons from "./containers/Buttons/buttons";
 
 import SimpleTable from "./containers/Table/table";
 
@@ -13,20 +13,21 @@ const client = new ApolloClient({
 });
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.addHandler = this.addHandler.bind(this);
+  }
+
+  addHandler() {
+    console.log("ADDHANDLER");
+  }
+
   render() {
     return (
       <ApolloProvider client={client}>
         <div className="App">
           <SimpleTable></SimpleTable>
-          <Button variant="contained" color="primary">
-            Add Person
-          </Button>
-          <Button variant="contained" color="primary">
-            Edit Person
-          </Button>
-          <Button variant="contained" color="primary">
-            Delete Person
-          </Button>
+          <Buttons />
         </div>
       </ApolloProvider>
     );

@@ -42,33 +42,11 @@ function createData(firstName, lastName, address) {
   return { firstName, lastName, address };
 }
 
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0),
-  createData("Ice cream sandwich", 237, 9.0)
-];
-
 export default function SimpleTable() {
   const classes = useStyles();
 
   return (
     <Paper className={classes.root}>
-      <Query query={DATA_QUERY}>
-        {({ loading, error, data }) => {
-          if (loading) {
-            return (
-              <div>
-                <CircularProgress
-                  className={classes.progress}
-                  color="secondary"
-                />
-              </div>
-            );
-          }
-          if (error) console.log(error);
-          console.log(data);
-          return <h1>TEST</h1>;
-        }}
-      </Query>
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
@@ -78,13 +56,29 @@ export default function SimpleTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map(row => (
-            <TableRow key={row.name}>
-              <TableCell align="left">{row.firstName}</TableCell>
-              <TableCell align="left">{row.lastName}</TableCell>
-              <TableCell align="left">{row.address}</TableCell>
-            </TableRow>
-          ))}
+          <Query query={DATA_QUERY}>
+            {({ loading, error, data }) => {
+              if (loading) {
+                return (
+                  <div>
+                    <CircularProgress
+                      className={classes.progress}
+                      color="secondary"
+                    />
+                  </div>
+                );
+              }
+              if (error) console.log(error);
+              console.log(data);
+              return data.persons.edges.map(person => (
+                <TableRow>
+                  <TableCell align="left">{person.node.firstName}</TableCell>
+                  <TableCell align="left">{person.node.lastName}</TableCell>
+                  <TableCell align="left">{person.node.address}</TableCell>
+                </TableRow>
+              ));
+            }}
+          </Query>
         </TableBody>
       </Table>
     </Paper>
