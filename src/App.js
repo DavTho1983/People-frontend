@@ -13,12 +13,34 @@ const client = new ApolloClient({
 });
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.getID = this.getID.bind(this);
+    this.state = {
+      addNewPerson: false,
+      currentID: "empty",
+      showButtons: true
+    };
+  }
+
+  getID(id) {
+    this.setState(
+      { currentID: id, showButtons: false, addNewPerson: false },
+      () => {
+        console.log("GETID", this.state.currentID, this.state.showButtons);
+      }
+    );
+  }
   render() {
     return (
       <ApolloProvider client={client}>
         <div className="App">
-          <SimpleTable></SimpleTable>
-          <Buttons />
+          <SimpleTable callbackid={this.getID}></SimpleTable>
+          <Buttons
+            showButtons={this.state.showButtons}
+            addNewPerson={this.state.addNewPerson}
+            id={this.state.currentID}
+          />
         </div>
       </ApolloProvider>
     );

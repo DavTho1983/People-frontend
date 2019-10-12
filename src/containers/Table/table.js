@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -7,6 +7,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 
@@ -38,8 +39,18 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function SimpleTable() {
+export default function SimpleTable(props) {
   const classes = useStyles();
+
+  const [id, setID] = useState(0);
+
+  const handleEdit = index => {
+    setID(index);
+  };
+
+  useEffect(() => {
+    props.callbackid(id);
+  }, [id]);
 
   return (
     <Paper className={classes.root}>
@@ -49,6 +60,7 @@ export default function SimpleTable() {
             <TableCell align="left">First name</TableCell>
             <TableCell align="left">Last name</TableCell>
             <TableCell>Address</TableCell>
+            <TableCell></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -64,11 +76,19 @@ export default function SimpleTable() {
               }
               if (error) console.log(error);
               console.log(data);
-              return data.persons.edges.map(person => (
-                <TableRow>
+              return data.persons.edges.map((person, index) => (
+                <TableRow
+                  key={index}
+                  onClick={() => {
+                    handleEdit(index);
+                  }}
+                >
                   <TableCell align="left">{person.node.firstName}</TableCell>
                   <TableCell align="left">{person.node.lastName}</TableCell>
                   <TableCell align="left">{person.node.address}</TableCell>
+                  <TableCell align="left">
+                    <DeleteForeverIcon />
+                  </TableCell>
                 </TableRow>
               ));
             }}

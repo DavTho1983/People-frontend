@@ -20,7 +20,7 @@ class Buttons extends Component {
   }
 
   render() {
-    if (this.state.showButtons) {
+    if (this.props.showButtons && this.props.currentID === "empty") {
       return (
         <div className="Buttons">
           <Button
@@ -39,8 +39,12 @@ class Buttons extends Component {
           </Button>
         </div>
       );
-    } else {
+    } else if (this.props.addNewPerson) {
       return <Form />;
+    } else {
+      return (
+        <Form firstName={"Steve"} lastName={"Parfidis"} address={"The Oaks"} />
+      );
     }
   }
 }

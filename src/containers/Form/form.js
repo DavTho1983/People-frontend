@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import { useMutation } from "@apollo/react-hooks";
 
 import gql from "graphql-tag";
@@ -54,6 +53,7 @@ function Form(props) {
         <TextField
           id="first-name"
           label="First name"
+          default={props.firstName}
           onChange={handleFirstNameInput}
           margin="normal"
         />
