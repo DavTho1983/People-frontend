@@ -8,43 +8,57 @@ class Buttons extends Component {
     super(props);
     this.addHandler = this.addHandler.bind(this);
     this.state = {
-      showButtons: true
+      showButtons: true,
+      edit: "add"
     };
   }
 
-  addHandler() {
-    console.log("ADDHANDLER");
+  addHandler(edit) {
+    console.log("ADDHANDLER", edit);
     this.setState({
-      showButtons: false
+      showButtons: false,
+      edit: edit
     });
   }
 
   render() {
-    if (this.props.showButtons && this.props.currentID === "empty") {
+    if (this.state.showButtons) {
       return (
         <div className="Buttons">
           <Button
             variant="contained"
             color="primary"
             className="button"
-            onClick={this.addHandler}
+            onClick={() => {
+              this.addHandler("add");
+            }}
           >
             Add Person
           </Button>
-          <Button variant="contained" color="primary" className="button">
+          <Button
+            variant="contained"
+            color="primary"
+            className="button"
+            onClick={() => {
+              this.addHandler("edit");
+            }}
+          >
             Edit Person
           </Button>
-          <Button variant="contained" color="primary" className="button">
+          <Button
+            variant="contained"
+            color="primary"
+            className="button"
+            onClick={() => {
+              this.addHandler("delete");
+            }}
+          >
             Delete Person
           </Button>
         </div>
       );
-    } else if (this.props.addNewPerson) {
-      return <Form />;
     } else {
-      return (
-        <Form firstName={"Steve"} lastName={"Parfidis"} address={"The Oaks"} />
-      );
+      return <Form edit={this.state.edit} />;
     }
   }
 }

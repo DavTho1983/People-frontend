@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -42,16 +42,6 @@ const useStyles = makeStyles(theme => ({
 export default function SimpleTable(props) {
   const classes = useStyles();
 
-  const [id, setID] = useState(0);
-
-  const handleEdit = index => {
-    setID(index);
-  };
-
-  useEffect(() => {
-    props.callbackid(id);
-  }, [id]);
-
   return (
     <Paper className={classes.root}>
       <Table className={classes.table}>
@@ -77,17 +67,12 @@ export default function SimpleTable(props) {
               if (error) console.log(error);
               console.log(data);
               return data.persons.edges.map((person, index) => (
-                <TableRow
-                  key={index}
-                  onClick={() => {
-                    handleEdit(index);
-                  }}
-                >
+                <TableRow key={index}>
                   <TableCell align="left">{person.node.firstName}</TableCell>
                   <TableCell align="left">{person.node.lastName}</TableCell>
                   <TableCell align="left">{person.node.address}</TableCell>
                   <TableCell align="left">
-                    <DeleteForeverIcon />
+                    <DeleteForeverIcon color={"primary"} fontSize={"large"} />
                   </TableCell>
                 </TableRow>
               ));
