@@ -13,15 +13,6 @@ const client = new ApolloClient({
 });
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.addHandler = this.addHandler.bind(this);
-  }
-
-  addHandler() {
-    console.log("ADDHANDLER");
-  }
-
   render() {
     return (
       <ApolloProvider client={client}>

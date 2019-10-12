@@ -38,10 +38,6 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function createData(firstName, lastName, address) {
-  return { firstName, lastName, address };
-}
-
 export default function SimpleTable() {
   const classes = useStyles();
 
@@ -60,12 +56,10 @@ export default function SimpleTable() {
             {({ loading, error, data }) => {
               if (loading) {
                 return (
-                  <div>
-                    <CircularProgress
-                      className={classes.progress}
-                      color="secondary"
-                    />
-                  </div>
+                  <CircularProgress
+                    className={classes.progress}
+                    color="secondary"
+                  />
                 );
               }
               if (error) console.log(error);
