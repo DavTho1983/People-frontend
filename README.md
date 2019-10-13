@@ -14,55 +14,28 @@ You will also see any lint errors in the console.
 
 ### `yarn test`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<h1>README</h1>
 
-### `yarn build`
+To run this project, please clone this repo and the backend repo at https://github.com/DavTho1983/People
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+In the same directory as the frontend:
+npm install material-icons
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+You will need to install postgres and create a db called hiSkydb with user postgres and password admin on port 5432 - see settings.py
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+With Postgres running, in the same directory as the backend:
+activate the venv
+you may need to install django, graphene and graphene-django
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver
 
-### `yarn eject`
+<h2>NOTES</h2>
+The application has a table that shows all persons, and three buttons that allow persons to be added, edited and deleted.
+The UI/UX is not ideal - the trash icons on the table are not functional, but hint that the ideal functionality would be to be able to click on
+table rows to edit a person, or click on the trash icon for that row to delete a person. I need to read more about React Hooks to do this properly!
+The way I would usually achieve this functionality is by managing the state centrally in the store, and I did not have time to do this - plus it seems
+like an old way of doing it that isn't encouraged anymore.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+I have also not managed to set up the file system for static files with Apollo - static files in Django are pretty straightforward, but not sure how to do it in
+Apollo with graphql - I will be investigating this and using it in my own projects!
