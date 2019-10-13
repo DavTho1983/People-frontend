@@ -13,21 +13,17 @@ export const ADD_PERSON = gql`
 `;
 
 export const EDIT_PERSON = gql`
-  mutation personEdit($id: String!, $input: PersonInputType!) {
-    personEdit(id: id, input: $input) {
-      person {
-        id
-      }
+  mutation personEdit($id: ID!, $input: PersonInputType!) {
+    personEdit(id: $id, input: $input) {
+      ok
     }
   }
 `;
 
 export const DELETE_PERSON = gql`
-  mutation personEdit($id: String!) {
-    personDelete(id: id) {
-      person {
-        ok
-      }
+  mutation personDelete($id: ID!) {
+    personDelete(id: $id) {
+      ok
     }
   }
 `;

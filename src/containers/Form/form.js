@@ -12,8 +12,8 @@ function Form(props) {
   const [idx, setID] = useState("");
 
   const [addPerson, { data }] = useMutation(ADD_PERSON);
-  const [editPerson, { editdata }] = useMutation(EDIT_PERSON);
-  const [deletePerson, { deletedata }] = useMutation(DELETE_PERSON);
+  const [editPerson] = useMutation(EDIT_PERSON);
+  const [deletePerson] = useMutation(DELETE_PERSON);
 
   const handleFirstNameInput = e => {
     setFirstname(e.target.value);
@@ -50,7 +50,6 @@ function Form(props) {
           <TextField
             id="first-name"
             label="First name"
-            default={props.firstName}
             onChange={handleFirstNameInput}
             margin="normal"
           />
